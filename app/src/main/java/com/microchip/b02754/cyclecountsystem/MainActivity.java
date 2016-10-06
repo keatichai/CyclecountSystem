@@ -1,10 +1,14 @@
 package com.microchip.b02754.cyclecountsystem;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,11 +34,36 @@ public class MainActivity extends AppCompatActivity {
             }// onclick
         });
 
+        //Check Internet
 
-
+        if (checkInternet()) {
+            //Internet ok
+            Toast.makeText(this,"Can connect internet",Toast.LENGTH_SHORT).show();
+        } else {
+            //Internet fail
+            Toast.makeText(this,"Can not connect internet",Toast.LENGTH_SHORT).show();
+        }
     } // Main Method
 
+    private boolean checkInternet() {
+        try {
+            boolean bolInternet = false;
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
+
+            if ((networkInfo != null)&&(networkInfo.isConnected())) {
+                bolInternet = true;
+            }
+
+            Log.d("6octV2","bolInter ==>" + bolInternet);
+            return bolInternet;
+        } catch (Exception e) {
+            return false;
+        }
+
+
+    }
 
 
 } //Main
