@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Can connect internet",Toast.LENGTH_SHORT).show();
         } else {
             //Internet fail
-            Toast.makeText(this,"Can not connect internet",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Can not connect internet",Toast.LENGTH_SHORT).show();
+            MyAlert myAlert = new MyAlert(MainActivity.this,R.drawable.kon48,"Internet fail","Cannot Connected Internet.");
+            myAlert.myDialog();
         }
     } // Main Method
 
