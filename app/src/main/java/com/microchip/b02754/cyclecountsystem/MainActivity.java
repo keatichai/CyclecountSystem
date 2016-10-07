@@ -2,6 +2,7 @@ package com.microchip.b02754.cyclecountsystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
@@ -142,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,
                         "Welcome " + loginStrings[1],
                         Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this,
+                        ServiceCountActivity.class);
+                intent.putExtra("Login",loginStrings); // include data and move data to other activity
+                startActivity(intent);
+                finish(); // close parent.
 
             }
 
