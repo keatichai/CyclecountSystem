@@ -5,6 +5,7 @@
     <string name="syn">Syncronize</string>
     <string name="name">ชื่อ</string>
     <string name="id_card">รหัสพนักงาน</string>
+    <string name="ok">OK</string>
     <string name="user">User :</string>
     <string name="pass">Password :</string>
     <string name="re_pass">Re-Password :</string>
