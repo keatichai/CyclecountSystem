@@ -2,6 +2,7 @@ package com.microchip.b02754.cyclecountsystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private MyManage myManage;
     private EditText userEditText ,passwordEditText;
     private String userString, passwordString;
+    private String[] loginStrings;
+    private boolean userABoolean = true;
 
 
 
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     //No space
+                    checkUserAnPass();
 
                 }
 
@@ -104,6 +108,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     }   // Main Method
+
+    private void checkUserAnPass() {
+
+        //Read All SQLite
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE User = " + "'" + userString + "'", null);
+        cursor.moveToFirst();
+        Log.d("7octV2", "cursor.getCont ==> " + cursor.getCount());
+
+        if (cursor.getCount() == 0) {
+            //User False
+            MyAlert myAlert = new MyAlert(MainActivity.this, R.drawable.rat48,
+                    "User False", "No " + userString + " in my Database");
+            myAlert.myDialog();
+        } else {
+            // User True
+            loginStrings = new String[cursor.getColumnCount()];
+            for (int i=0;i<loginStrings.length;i+=1) {
+
+                loginStrings[i] = cursor.getString(i);
+                Log.d("7octV2", "loginStrings(" + i + ") = " + loginStrings[i]);
+
+            }   // for
+
+            if (!passwordString.equals(loginStrings[4])) {
+                MyAlert myAlert = new MyAlert(MainActivity.this, R.drawable.rat48,
+                        "Password False", "Please Try again Password False");
+                myAlert.myDialog();
+            } else {
+                //Pass True
+                Toast.makeText(MainActivity.this,
+                        "Welcome " + loginStrings[1],
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+        }   // if
+
+    }   // checkUserAnPass
+
 
     private class SynUser extends AsyncTask<String, Void, String> {
         //Explicit
