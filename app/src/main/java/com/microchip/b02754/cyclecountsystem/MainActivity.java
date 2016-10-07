@@ -17,6 +17,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     //Explicit
@@ -102,6 +105,29 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.d("7octV1","JSON ===>" + s);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i=0;i<jsonArray.length();i+=1) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    String strName = jsonObject.getString(MyManage.column_Name);
+                    String strID_card = jsonObject.getString(MyManage.column_ID_card);
+                    String strUser = jsonObject.getString(MyManage.column_User);
+                    String strPassword = jsonObject.getString(MyManage.column_Password);
+                    String strPosition = jsonObject.getString(MyManage.column_Position);
+                    String strStatus = jsonObject.getString(MyManage.column_Status);
+
+                    myManage.addUserTABLE(strName, strID_card, strUser, strPassword, strPosition, strStatus);
+
+                } //for
+
+
+            } catch (Exception e) {
+                Log.d("7octV1","e onPost ==> "+e.toString());
+
+            }
 
         } // onPost
 
