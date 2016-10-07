@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     //Explicit
     private Button signInButton, signUpButton, synButton;
     private MyManage myManage;
+    private EditText userEditText ,passwordEditText;
+    private String userString, passwordString;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         signInButton = (Button) findViewById(R.id.button);
         signUpButton = (Button) findViewById(R.id.button2);
         synButton = (Button) findViewById(R.id.button3);
+        userEditText = (EditText) findViewById(R.id.editText6);
+        passwordEditText = (EditText) findViewById(R.id.editText7);
 
         //Request Database
         myManage = new MyManage(MainActivity.this);
@@ -72,6 +79,28 @@ public class MainActivity extends AppCompatActivity {
                     "Internet False", "Cannot Connected Internet");
             myAlert.myDialog();
         }
+
+        //Sign In Controler
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //Get values form edit Text
+                userString = userEditText.getText().toString().trim();
+                passwordString = passwordEditText.getText().toString().trim();
+                //Check Spance
+                if (userString.equals("")||passwordString.equals("")) {
+                    //Have space
+                    MyAlert myAlert = new MyAlert(MainActivity.this,
+                    R.drawable.bird48,"Have space","please fill all every blank");
+                    myAlert.myDialog();
+
+                } else {
+                    //No space
+
+                }
+
+            }  //Onclick
+        });
 
 
     }   // Main Method
