@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private MyManage myManage;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Request Database
         myManage = new MyManage(MainActivity.this);
+
+        //Tester Add value to SQLite
+        testAddValueToSQLite();
 
         //Sign Up Controller
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     }   // Main Method
+
+    private void testAddValueToSQLite() {
+
+        myManage.addUserTABLE("Name","idCard","User","Pass","position","Open");
+        myManage.addTb_CountTxns("111","lotid","quantity","price","UOM","DATE","Open");
+        myManage.addTb_CountMst("111","shelfid","date","countby","checkeby","Open");
+
+
+    }
 
     private boolean checkInternet() {
 
